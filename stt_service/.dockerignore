@@ -1,0 +1,21 @@
+# .dockerignore
+__pycache__/
+*.pyc
+*.pyo
+
+.env
+.env.*
+!.env.example
+
+uploads/
+extracted_audio.wav
+*.wav
+
+.git/
+.gitignore
+
+Dockerfile
+docker-compose.yml
+dockercompose.yml
+
+.vscode/

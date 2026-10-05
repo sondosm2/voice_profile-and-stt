@@ -1,0 +1,17 @@
+{
+  "language": "ar",
+  "title": "Idraak Meeting Minutes",
+  "participants": [
+    {
+      "name": "Speaker A",
+      "role": "",
+      "speaker_id": "SPEAKER_00"
+    }
+  ],
+  "topics": [],
+  "decisions": [],
+  "open_questions": [],
+  "issues": [],
+  "important_notes": [],
+  "summary": "The meeting focused on the independence of a module, ensuring it functions separately without being integrated into another system. Speaker A emphasized this point and clarified that the module's name is standard and not unusual."
+}

@@ -1,0 +1,55 @@
+services:
+  redis:
+    image: redis:8.0
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build: .
+    image: meeting-service:latest
+    command: uvicorn main:app --host 0.0.0.0 --port 5000
+    ports:
+      - "5000:5000"
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    volumes:
+      - uploads:/app/uploads
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  worker-gpu0:
+    build: .
+    image: meeting-service:latest
+    command: python main.py
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      HF_HOME: /hub
+      HUGGINGFACE_HUB_CACHE: /hub
+    shm_size: '2gb'
+    volumes:
+      - uploads:/app/uploads
+      - /media/ai/96ba2917-db4a-4c43-9410-ee6f29403cde/models/hub:/hub
+    depends_on:
+      redis:
+        condition: service_healthy
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  uploads:
