@@ -49,6 +49,4 @@ python -m meeting_stt_bundle.worker
 
 Install dependencies from both service requirement files. The meeting STT
 service requires Redis, FFmpeg, model access, and its LLM environment values.
-Place voice-profile model files under
-`meeting_stt_bundle/voice_profile/pretrained_models/`.
-# voice_profile-and-stt
+
